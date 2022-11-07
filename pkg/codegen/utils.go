@@ -86,7 +86,7 @@ func init() {
 		predeclaredSet[id] = struct{}{}
 	}
 
-	separators := "-#@!$&=.+:;_~ (){}[]"
+	separators := "-#@!$&=.+:;~ (){}[]"
 	separatorSet = map[rune]struct{}{}
 	for _, r := range separators {
 		separatorSet[r] = struct{}{}
@@ -157,6 +157,10 @@ func ToCamelCase(str string) string {
 			}
 		}
 		_, capNext = separatorSet[v]
+		if v == '_' {
+			n += string(v)
+			capNext = true
+		}
 	}
 	return n
 }
